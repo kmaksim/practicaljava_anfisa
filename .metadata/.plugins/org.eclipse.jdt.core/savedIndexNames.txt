@@ -1,8 +1,0 @@
-INDEX VERSION 1.126+/Users/annakhotina/PracticalJava/practicaljava_anfisa/.metadata/.plugins/org.eclipse.jdt.core
-1769071634.index
-511104132.index
-2264736097.index
-1872659540.index
-536113371.index
-4059697655.index
-2148679975.index

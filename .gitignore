@@ -36,6 +36,9 @@
 ehthumbs.db
 Thumbs.db
 
+./mylyn
+./plugins
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
