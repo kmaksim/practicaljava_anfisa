@@ -45,14 +45,13 @@ public class CalculatorEngine implements ActionListener {
  public void actionPerformed(ActionEvent e){
    //make calculations depending on pressed button
    JButton clickedButton =  (JButton) e.getSource();
-   String dispFieldText = parent.getNumbersLCDValue();
    String clickedButtonLabel = clickedButton.getText();
    numbersLCDValue=parent.getNumbersLCDValue();
    System.out.println("pressed " + clickedButtonLabel 
 		   +  " num1<" + num1 
 		   + "> num2<" + num2  
 		   + "> toDisplay<" + numbersLCDValue 
-		   + ">" + dispFieldText);
+		   + ">" );
    switch (clickedButtonLabel) {
    	   case "=":
    		   // ignore if previous operator was =
@@ -114,6 +113,12 @@ public class CalculatorEngine implements ActionListener {
 		   // check if it was pressed multiple times and if there is alreday a dot
 		   // ignore it then
 		   // if LCD was clear enter 0.
+		   if (clearLCDFlag) {
+			   numbersLCDValue = "0.";
+			   parent.setNumbersLCDValue("0.");
+			   clearLCDFlag = false;
+			   break;
+		   } 
 		   if (numbersLCDValue.equals("")) {
 			   numbersLCDValue = "0.";
 			   parent.setNumbersLCDValue(numbersLCDValue);
@@ -124,12 +129,6 @@ public class CalculatorEngine implements ActionListener {
 			   parent.setNumbersLCDValue(numbersLCDValue);
 			   break;
 		   }
-		   if (clearLCDFlag) {
-			   numbersLCDValue = "0.";
-			   parent.setNumbersLCDValue("0.");
-			   clearLCDFlag = false;
-			   break;
-		   } 
 		   System.out.println("wrong path");
 		   break;   
 	   case "C":
