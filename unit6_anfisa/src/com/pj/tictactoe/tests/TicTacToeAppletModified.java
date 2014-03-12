@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 /**
  * TicTacToe game for arbitrary board size
  * TODO: add AI, switch between players, message when game is even
- * change winning party test: 5 symbols in a row is enough to win
  * make it pretty (fix font, layout, play with images)
  */
 
@@ -21,7 +20,8 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
   private static final String PLAYERX = "Player X"; 
   private static final String PLAYERO = "Player O";
   /**board side dimensions*/
-  private static final int BOARDDIMENSIONS = 5;
+  private static final int BOARDDIMENSIONS = 3;
+  private String matchCombination;
   
   /**starting player name*/
   private String playerName = PLAYERX;
@@ -32,6 +32,11 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
 
   public void init(){
     initComponents();
+    if ( BOARDDIMENSIONS > 4 ) { 
+    	matchCombination = "1111"; 
+    } else {
+    	matchCombination = "11";
+    }
   }
 
   private void initComponents(){
@@ -77,7 +82,7 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
     String [] str = {"OK"};
     String message; 
     String title;
-    if(findThreeInARow()){
+    if(findMatchInARow()){
       String winnerName=(playerName == PLAYERX)?PLAYERO:PLAYERX;  
       message = winnerName.concat(" won!!! Congratulations!!!");
       title = "Congratulations!";  
@@ -118,11 +123,11 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
   public void mouseExited(MouseEvent e) {
   }
   
-  private boolean findThreeInARow(){
+  private boolean findMatchInARow(){
     int i = 0;
     int j;
     String matches = "";
-    /**test vertical matches*/
+	/**test horizontal matches*/
     for (i=0;i<BOARDDIMENSIONS;i++) {
       for (j=0;j<BOARDDIMENSIONS-1;j++) {	
         if (button[i][j].getText().equals(button[i][j+1].getText()) 
@@ -132,16 +137,16 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
         	matches += "0";
         }
       }
-      if (!matches.contains("0")) {
+      if (matches.contains(matchCombination)) {
           return true;
       } else {
       	matches="";
       }
     }
 
-    /**test horizontal matches*/
+    /**test vertical matches*/
     matches="";
-    for (j=0;j<BOARDDIMENSIONS-1;j++) {
+    for (j=0;j<BOARDDIMENSIONS;j++) {
       for (i=0;i<BOARDDIMENSIONS-1;i++) {	
         if (button[i][j].getText().equals(button[i+1 ][j].getText()) 
       		  && !button[i][j].getText().equals(""))  {
@@ -150,7 +155,7 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
           	matches += "0";
         }
       }
-      if (!matches.contains("0")) {
+      if (matches.contains(matchCombination)) {
         return true;
       } else {
         matches="";
@@ -167,9 +172,11 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
       	matches += "0";
       }
     }
-    if (!matches.contains("0")) {
+    if (matches.contains(matchCombination)) {
         return true;
     }
+    
+    /**test diagonal matches 2*/
     matches="";
     j = 0;
     for (i=BOARDDIMENSIONS-1;i>0;i--) {
@@ -181,7 +188,7 @@ public class TicTacToeAppletModified extends JApplet implements MouseListener
       }
       j++;
     }
-    if (!matches.contains("0")) {
+    if (matches.contains(matchCombination)) {
       return true;
     } else {
       return false;
