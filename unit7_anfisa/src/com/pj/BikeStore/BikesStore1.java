@@ -2,7 +2,6 @@ package com.pj.BikeStore;
 import javax.swing.BoxLayout;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 * and text field input value validation, including clipboard content
 **/
 
-public class BikesStore extends JFrame{
+public class BikesStore1 extends JFrame{
 	private JButton buttonOrder;
   private GridBagLayout layoutGBC;
   private GridBagConstraints constraints;
@@ -41,38 +40,13 @@ public class BikesStore extends JFrame{
 	static Logger log = Logger.getLogger("com.pj.BikeStore");
 	static int truckLimits = 10;
 	
-  class TooManyBikesExc extends Exception {
-    TooManyBikesExc() {
-    }
-     
-    TooManyBikesExc(String message) {
-      super(message);
-      log.info ("Too many bikes !!!!" + message);
-    }
-  }
-	
-	public class ClickListener implements ActionListener  {
-		public void actionPerformed(ActionEvent e) {
-			log.info("clicked" + comboBikeBrands.getSelectedIndex());
-			
-			try {
-	      validateBikeNumber(textFieldNumberOfBikes.getText());
-	    } catch (TooManyBikesExc e1) {
-	      log.info("Caught " + e1 + "\n");
-	      textAreaOutputOrderStatus.setText("Thank you for your order! \nUnfortunetely we can  "+
-	       "deliver only \n" + truckLimits + " bikes in one day.");
-	      //e1.printStackTrace();
-	    }   		
-		}
-	}
-	
-	 public void validateBikeNumber(String text) throws TooManyBikesExc {
+  public void validateBikeNumber(String text) throws TooManyBikesException {
 	   log.info (" " + textFieldNumberOfBikes.getText() );
 	   if ( textFieldNumberOfBikes.getText().equals("") ||  
 	       Integer.parseInt(textFieldNumberOfBikes.getText()) == 0  ) {
        textAreaOutputOrderStatus.setText("Thank you for your interest! \n Add at least one bike to the order.");
 	    } else if (Integer.parseInt(textFieldNumberOfBikes.getText())  > truckLimits ) {
-	        throw new TooManyBikesExc(">>>Too many Bikes exception<<<");
+	        throw new TooManyBikesException(">>>Too many Bikes exception<<<");
 	    } else if (Integer.parseInt(textFieldNumberOfBikes.getText())  == 1 ) {
 	      textAreaOutputOrderStatus.setText("Thank you for your order! \nYou ordered " + 
 	          Integer.parseInt(textFieldNumberOfBikes.getText()) + " \""  + bikeBrands[comboBikeBrands.getSelectedIndex()]
@@ -87,9 +61,9 @@ public class BikesStore extends JFrame{
 	public static void main(String[] args) {
     /**initiate brands*/
     bikeBrands = new String[] { "Helkama", "Dahon", "Kama", "Orlejonok", "Author" };
-		JFrame frame = new BikesStore();
-		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(),
-		//		BoxLayout.Y_AXIS));
+		JFrame frame = new BikesStore1();
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(),
+				BoxLayout.Y_AXIS));
 		frame.setTitle("Bike Store");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.pack();
@@ -97,7 +71,7 @@ public class BikesStore extends JFrame{
 		frame.setVisible(true);
 	}
 
-  public BikesStore() {
+  public BikesStore1() {
 		createComponents();
 		setSize(300,300);
 	}
@@ -143,7 +117,7 @@ public class BikesStore extends JFrame{
     textAreaOutputOrderStatus.setEditable(false);
 	  
 		panel = new JPanel();
-		ActionListener listener = new ClickListener();
+		ActionListener listener = new ClickListener(this);
 		buttonOrder.addActionListener(listener); 
 		/**titles for frames*/
 		TitledBorder title1;

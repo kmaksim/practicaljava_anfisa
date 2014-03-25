@@ -1,0 +1,12 @@
+Mar 26, 2014 3:03:40 AM com.pj.TestGenericMethod.TestGenericMethod TestGenericMethod
+INFO: 
+Book name: bookName1
+Mar 26, 2014 3:03:40 AM com.pj.TestGenericMethod.TestGenericMethod TestGenericMethod
+INFO: 
+Book name: bookName2
+Mar 26, 2014 3:03:40 AM com.pj.TestGenericMethod.TestGenericMethod TestGenericMethod
+INFO: List contents:
+[MyAniqueBook [condition=Some pages are teared out and lost, bookName=bookName1, bookAuthor=Author1], MyAniqueBook [condition=Dusty, bookName=bookName2, bookAuthor=Author2]]
+Mar 26, 2014 3:03:40 AM com.pj.TestGenericMethod.TestGenericMethod main
+INFO: Antique books list contents:
+[MyAniqueBook [condition=Some pages are teared out and lost, bookName=bookName1, bookAuthor=Author1], MyAniqueBook [condition=Dusty, bookName=bookName2, bookAuthor=Author2]]
