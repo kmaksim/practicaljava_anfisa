@@ -10,7 +10,7 @@ public class MyRank {
 
   @Override
   public String toString() {
-    return "Portfolio [i=" + i + "]";
+    return "Rank [i=" + i + "]";
   }
 
 }

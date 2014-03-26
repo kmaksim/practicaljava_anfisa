@@ -30,6 +30,17 @@ import com.pj.util.Utils;
     data.put(null, rank);
     data.put("Rank1", null);
       
+    l.log.info(data.get("Order").toString());  
+    
+    // the following code gives nullPointer exception, why?
+    // seems like i can't convert null toString
+    //l.log.info(data.get("Rank1").toString());
+    
+    //the following does not give an exception
+    l.log.info(" " + data.get("Rank1"));
+    
+    l.log.info(data.get("Rank").toString());
+    
     l.log.info(data.toString());   
       
     }
