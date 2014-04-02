@@ -11,8 +11,14 @@ import java.util.zip.ZipOutputStream;
 
 import javax.xml.bind.*; // for DatatypeConverter; requires Java 6 or JAXB 1.0
 
-public class MultipleFileDownloaderAsZip  {
+/**
+ * 
+ * Multiple files downloader as one archive
+ * list URLs to files as command line arguments
+ *
+ */
 
+public class MultipleFileDownloaderAsZip  {
 
   public static void main(String[] args) throws IOException  {
 
