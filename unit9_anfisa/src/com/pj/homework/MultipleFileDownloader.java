@@ -6,6 +6,12 @@ import java.net.URLConnection;
 import java.security.*;
 import javax.xml.bind.*; // for DatatypeConverter; requires Java 6 or JAXB 1.0
 
+/**
+ * 
+ * Multiple files downloader
+ * list URLs to files as command line arguments
+ *
+ */
 public class MultipleFileDownloader extends Thread {
 
   private String filename;
@@ -39,6 +45,7 @@ public class MultipleFileDownloader extends Thread {
           j++;
           if (j==63) {
             System.out.println(".");
+            j=0;
           }
           System.out.print(".");
         }
@@ -60,8 +67,6 @@ public class MultipleFileDownloader extends Thread {
         e.printStackTrace(); 
       }
     }
-    
-    
   }
 
   public static void main(String[] args) {
