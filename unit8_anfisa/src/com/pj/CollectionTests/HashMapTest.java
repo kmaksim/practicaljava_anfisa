@@ -1,11 +1,13 @@
 package com.pj.CollectionTests;
 
-  import java.util.Hashtable;
+  import java.util.HashMap;
 
 import com.pj.TestObjects.MyBook;
 import com.pj.TestObjects.MyOrder;
 import com.pj.TestObjects.MyRank;
 import com.pj.util.Utils;
+
+  
 
   public class HashMapTest {
   
@@ -17,15 +19,24 @@ import com.pj.util.Utils;
     MyOrder ord = new MyOrder(123, "IBM");
     MyRank rank = new MyRank(123);
     
-    Hashtable data = new Hashtable();
+    HashMap data = new HashMap();
     data.put("Book", book1);
     data.put("Order", ord);
     data.put("Rank", rank);
-    
-    /** error if to try to put the following elemts into HashMap */
-    //data.put(null, rank);
-    //data.put("Rank1", null);
+    data.put(null, rank);
+    data.put("Rank1", null);
       
+    l.log.info(data.get("Order").toString());  
+    
+    // the following code gives nullPointer exception, why?
+    // seems like i can't convert null toString
+    //l.log.info(data.get("Rank1").toString());
+    
+    //the following does not give an exception
+    l.log.info(" " + data.get("Rank1"));
+    
+    l.log.info(data.get("Rank").toString());
+    
     l.log.info(data.toString());   
       
     }

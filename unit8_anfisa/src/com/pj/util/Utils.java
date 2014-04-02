@@ -11,7 +11,7 @@ import java.util.logging.SimpleFormatter;
 
 public class Utils {
 
-  public Logger log = Logger.getLogger("unit8"); 
+  public static Logger log = Logger.getLogger("unit8"); 
   
   public Utils() {
     createLogger();
@@ -41,7 +41,7 @@ public class Utils {
   }
 
   /** read plain text file and return ArrayList */
-  public ArrayList<String> getPlainTextFileContents(String fileName) {
+  public static ArrayList<String> getPlainTextFileContents(String fileName) {
     ArrayList<String> alist = new ArrayList<>();
     try {
       Scanner in = new Scanner(new File(fileName));
@@ -58,9 +58,8 @@ public class Utils {
     return alist; 
   }
 
-  /** read UTF8 file and return plain text*/
-  //public ArrayList<String> getUTF8TextFileContents(ArrayListUTF8 arrayListUTF8, String fileName) {
-  public ArrayList<String> getUTF8TextFileContents(String fileName) {  
+  /** reads UTF8 file and returns plain text*/
+  public static ArrayList<String> getUTF8TextFileContents(String fileName) {  
     ArrayList<String> alist = new ArrayList<>();
     try {
       BufferedReader reader = new BufferedReader(new FileReader(fileName));
