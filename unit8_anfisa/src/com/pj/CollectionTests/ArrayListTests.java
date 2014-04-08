@@ -17,6 +17,19 @@ package com.pj.CollectionTests;
     }
     
     private void start() {
+
+      /*
+       * the code below will cause
+       * Exception in thread "main" java.lang.NullPointerException
+  at com.pj.CollectionTests.ArrayListTests.start(ArrayListTests.java:22)
+  at com.pj.CollectionTests.ArrayListTests.main(ArrayListTests.java:16)
+  
+      ArrayList<String> al = null;
+      al.add("testStr");
+      System.out.println(al.toString());
+      
+      */
+      
       ArrayList<String> bookList = new ArrayList<>();
       ArrayList<String> bookList1 = new ArrayList<>();
       l.log.info("===test start===");

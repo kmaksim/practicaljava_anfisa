@@ -1,17 +1,20 @@
 package com.pj.homework;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.*;
-import javax.xml.bind.*; // for DatatypeConverter; requires Java 6 or JAXB 1.0
+import java.util.Arrays;
+import java.util.Vector;
 
 /**
  * 
  * Multiple files downloader
  * list URLs to files as command line arguments
- *
+ * Usage: MultipleFileDownloader <URL to file1> <URL  to fileN>
+ * Author: Anfisakho
  */
+
 public class MultipleFileDownloader extends Thread {
 
   private String filename;
@@ -23,32 +26,28 @@ public class MultipleFileDownloader extends Thread {
   @Override
   public void run() {
     
-    InputStream in=null; 
-    FileOutputStream fOut=null;
-    try{
-      URL remoteFile=new URL(filename);      
-      URLConnection fileStream=remoteFile.openConnection();
-      
-      // Open output and input streams 
-      String[] tokens = filename.split("/"); // get file name from URL
-      fOut=new FileOutputStream( tokens[tokens.length -1] ); 
-      in=fileStream.getInputStream();
+    String[] tokens = filename.split("/"); // get file name from URL
     
+    URL remoteFile = null;
+    URLConnection fileStream = null;
+    try {
+      remoteFile = new URL(filename);
+      fileStream = remoteFile.openConnection();
+    } catch (MalformedURLException e1) {
+      e1.printStackTrace();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }         
+    
+    try (FileOutputStream fOut=new FileOutputStream( tokens[tokens.length -1] );
+        InputStream in=fileStream.getInputStream();) {
+      
       int data;
       System.out.println("Downloading " + tokens[tokens.length - 1]);
-      double i=0;
-      double j=0;
+      
       while((data=in.read())!=-1) {
-        fOut.write(data);
-        i++;
-        if ( (i % 1000000) == 0 ) {
-          j++;
-          if (j==63) {
-            System.out.println(".");
-            j=0;
-          }
-          System.out.print(".");
-        }
+        fOut.write(data); 
+        Util.progress(); //prints a dot every Mb
       }
 
       String workingDir = System.getProperty("user.dir");
@@ -58,19 +57,20 @@ public class MultipleFileDownloader extends Thread {
           + workingDir + "/" + tokens[tokens.length - 1] );
     } catch (Exception e) { 
       e.printStackTrace();
-    } finally{
-      try{ 
-        in.close(); 
-        fOut.flush(); 
-        fOut.close();
-      } catch(Exception e) {
-        e.printStackTrace(); 
-      }
     }
   }
 
   public static void main(String[] args) {
-    for (String filename : args) {
+    Vector<String> filesToDownload = new Vector<>();
+    if (args.length != 0) {
+      filesToDownload= new Vector<String>(Arrays.asList(args)); ;
+    } else {
+      filesToDownload.add("http://myflex.org/yf/podru/budam421.mp3");
+      filesToDownload.add("http://myflex.org/yf/podru/budam420.mp3");
+      filesToDownload.add("http://myflex.org/yf/podru/budam419.mp3");
+    }
+    
+    for (String filename : filesToDownload) {
       Thread t = new MultipleFileDownloader(filename);
       t.start();
     }
