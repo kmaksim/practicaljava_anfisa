@@ -12,13 +12,20 @@ import javax.swing.SwingWorker;
 /*
  * File Reader using Scanner to test SwingWorker
  */
-public class NewsReader2 extends SwingWorker<String, Integer> {
+public class NewsReaderProgress extends SwingWorker<String, Integer> {
   String fileContents = "";
   File fileName;
-  private static final int DELAY = 1000;
+  private static final int DELAY = 2000;
+  static int i = 0;
+  JTextArea textArea;
+  JTextArea textArea1;
+  JTextArea textArea2;
+  int fsize = 20;
 
-  public NewsReader2(File file) {
+  public NewsReaderProgress(File file, JTextArea textArea) {
     this.fileName = file;
+    this.textArea = textArea;
+
   }
 
   @Override
@@ -29,21 +36,35 @@ public class NewsReader2 extends SwingWorker<String, Integer> {
       return "Can't read the file";
     }
     String line;
+    
+    int fraction = fsize / 10 ;
     try (Reader ir = new InputStreamReader(new FileInputStream(fileName));
         BufferedReader in = new BufferedReader(ir);) {
 
       System.out.println("Reading file: " + fileName.getName());
-
+      
       while ((line = in.readLine()) != null) {
 
         System.out.println("Line: " + line);
         fileContents = fileContents + line + "\n";
-        Thread.sleep(DELAY);
+        
+          i=i+fraction;
+          publish(i);
+          setProgress(i);
+          Thread.sleep(DELAY);
+          System.out.println("reading file: " + i); 
+          textArea.setText(fileContents);          
+
       }
     } catch (FileNotFoundException e) {
       System.out.println("File Disappeared");
     }
     return fileContents;
+  }
+  
+  protected void process(String... chunks) {
+    //setProgress(i);
+    System.out.println("In process: " + i);  
   }
 
   @Override
@@ -51,8 +72,9 @@ public class NewsReader2 extends SwingWorker<String, Integer> {
     if (isCancelled())
       System.out.print("Cancelled !");
     else
-      // SwingWorkerTest.textArea1.append("Done !");
+
       System.out.println("Task done !");
+      //setProgress(100);
 
   }
 }
