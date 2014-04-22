@@ -86,11 +86,11 @@ public class SwingWorkerTest2 extends JFrame implements ActionListener {
         task1.execute();
         task2.execute();
         
-        String res1 = task1.get();
-        String res2 = task2.get();
+        //String res1 = task1.get();
+        //String res2 = task2.get();
         
-        textArea1.setText(res1);
-        textArea2.setText(res2);
+        //textArea1.setText(res1);
+        //textArea2.setText(res2);
                
        } catch (Exception e){
            e.printStackTrace();
