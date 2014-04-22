@@ -20,7 +20,7 @@ public class NewsReaderProgress extends SwingWorker<String, Integer> {
   JTextArea textArea;
   JTextArea textArea1;
   JTextArea textArea2;
-  int fsize = 20;
+  int fsize = 20; // temp file size value
 
   public NewsReaderProgress(File file, JTextArea textArea) {
     this.fileName = file;

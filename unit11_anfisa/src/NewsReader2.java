@@ -38,7 +38,7 @@ public class NewsReader2 extends SwingWorker<String, Integer> {
 
         System.out.println("Line: " + line);
         fileContents = fileContents + line + "\n";
-        Thread.sleep(DELAY);
+        Thread.currentThread().sleep(DELAY);
       }
     } catch (FileNotFoundException e) {
       System.out.println("File Disappeared");
@@ -52,6 +52,8 @@ public class NewsReader2 extends SwingWorker<String, Integer> {
       System.out.print("Cancelled !");
     else
       // SwingWorkerTest.textArea1.append("Done !");
+      
+
       System.out.println("Task done !");
 
   }
