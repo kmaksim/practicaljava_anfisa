@@ -15,10 +15,12 @@ import java.util.Map;
  * */
 
 public class ShowMyPortfolio {
-
+  public final static Object waitObject = ShowMyPortfolio.class;
+  public static boolean boolValue = false;
+  
   public static void main(String[] args) throws IOException,
       InterruptedException {
-
+    
     DBS dbs = new DBS();
 
     dbs.startServer();
@@ -33,8 +35,6 @@ public class ShowMyPortfolio {
     tickers.put("IBM", 20);
     tickers.put("GOOG", 120);
     tickers.put("A", 120);
-
-    //System.out.println("Populated table");
     
     dbs.populateTable(tickers);
 
@@ -43,8 +43,17 @@ public class ShowMyPortfolio {
     Portfolio myPortfolio = new Portfolio(dbs.DATABASE_URL, dbs.TABLE_NAME);
     Thread t = new Thread(myPortfolio);
     t.start();
+        
     
-    Thread.sleep(4000);
+    try {  
+      synchronized (ShowMyPortfolio.waitObject) {  
+          while (!ShowMyPortfolio.boolValue) {  
+            ShowMyPortfolio.waitObject.wait();  
+          }  
+      }  
+    } catch (InterruptedException ie) {  
+      ie.printStackTrace();  
+    }  
     
     dbs.cleanup();
     

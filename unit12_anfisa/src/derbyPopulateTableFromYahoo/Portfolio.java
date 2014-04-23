@@ -34,6 +34,13 @@ public class Portfolio implements Runnable {
         System.out.println(symbol + " quantity=" + quantity + ", price="
             + totalPrice);
       }
+      
+      synchronized (ShowMyPortfolio.waitObject) {  
+        ShowMyPortfolio.boolValue = true;  
+        ShowMyPortfolio.waitObject.notifyAll();  
+    }  
+
+    //System.out.println("Thread is finished");
 
     } catch (SQLException e) {
       e.printStackTrace();
