@@ -12,6 +12,8 @@
 	  out.println(StockServer.getYahooQuote("AAPL"));
 	--%>
 
+  ${header.host} Speaking ...<br>
+
 	Enter quote name in the following form:
 
 	<br> ( For example, "EPAM", "LXFT", "AAPL" or "IBM" )
